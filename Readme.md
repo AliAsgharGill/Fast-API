@@ -60,3 +60,27 @@ uvicorn main:app --reload --port 8080
 we will get internal server errors if data is not accordingly then return type.
 
 Just write "/docs" after running the localhost server for getting api docs.
+
+```
+    /docs
+```
+
+or
+
+```
+/redoc
+```
+
+Path Parameters that we provide in the url for getting data of specific person/product/thing data.
+
+here we are getting data of band using id
+
+```
+# Path Parameters
+@app.get("/bands/{band_id}")
+async def band(band_id: int) -> dict:
+    band = next((band_ for band_ in BANDS if band_["id"] == band_id), None)
+    if band:
+        return band
+    raise HTTPException(status_code=404, detail="Band not found")
+```
